@@ -1,47 +1,60 @@
 
 import React from "react";
-
+import './Demo.scss'
 
 class ChildComponent extends React.Component {
 
     state = {
-        Firstname: '',
-        Lastname: ''
+        showJobs: false
 
     }
-    HandleChangeFirstname = (event) => {
-        this.setState({
-            Firstname: event.target.value
-        }
-        )
 
-    }
-    HandleChangeLastname = (event) => {
+    handleShowHide = () => {
         this.setState({
-
-            Lastname: event.target.value
+            showJobs: !this.state.showJobs
         })
-
     }
-    HandleSubmit = (event) => {
-        event.preventDefault()
-        console.log('>>>>check data ', this.state)
-
+    handleOnclickDetele = (job) => {
+        console.log('handleOnclickDetele', job)
+        this.props.DeleteJob(job)
     }
-
 
 
     render() {
-        console.log('check props', this.props)
-        let name = this.props.name;
-        let age = this.props.age;
+
+        let { arrJobs } = this.props;
+        let { showJobs } = this.state;
+        let check = showJobs === true ? 'showJobs = true' : 'showJobs = false';
         return (
             <>
-                <div>
-                    tên {name}
-                    <br />
-                    tuổi{age}
-                </div>
+                {showJobs === false ?
+                    <div><button className="dtn-show"
+                        onClick={() => this.handleShowHide()}>Show</button>
+                    </div>
+                    :
+                    <>
+                        <div className="Job-lists">
+                            {
+                                arrJobs.map((item, _index) => {
+
+                                    return (
+
+                                        <div key={item.id}>
+                                            {item.title} - {item.salary} <></>  <span onClick={() => this.handleOnclickDetele(item)}>x</span>
+
+
+                                        </div>
+                                    )
+
+                                }
+                                )
+
+                            }
+
+                        </div>
+                        <div><button onClick={() => this.handleShowHide()}> Hilde</button></div>
+                    </>
+                }
 
             </>
         )
@@ -50,4 +63,36 @@ class ChildComponent extends React.Component {
     }
 
 }
+/*
+const ChildComponent = (props) => {
+    let { arrJobs } = props;
+    return (
+        <>
+            <div className="Job-lists">
+                {
+                    arrJobs.map((item, index) => {
+                        if (+item.salary >= 200) {
+
+
+
+                            return (
+
+                                <div key={item.id}>
+                                    {item.title} - {item.salary}$
+
+                                </div>
+                            )
+                        }
+
+                    })
+
+                }
+
+            </div>
+
+        </>
+    )
+
+}*/
+
 export default ChildComponent;
