@@ -1,7 +1,7 @@
 import React from "react";
 import './Listodos.scss';
 import AddTodo from "./Addtodos";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 class Listodos extends React.Component {
     state = {

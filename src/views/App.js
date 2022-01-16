@@ -1,36 +1,66 @@
 import logo from './logo.svg';
 import './App.scss';
-// import MyComponent from './Example/MyComponent.js';
-// import Listodos from './Todos/Listodos';
+import MyComponent from './Example/MyComponent.js';
+import Listodos from './Todos/Listodos';
 import Nav from './Navigation/Nav.js';
+import Home from './Example/home';
+import ListUser from './user/ListUser';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+  Router
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Nav />
-        {/* <Listodos></Listodos> */}
-        {/* <MyComponent /> */}
-      </header>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      {/* Same as */}
-      <ToastContainer />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+
+        <header className="App-header">
+          <Nav />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+
+
+
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/about">
+              <MyComponent />
+            </Route>
+            <Route path="/todo">
+              <Listodos></Listodos>
+            </Route>
+            <Route path="/user">
+              <ListUser />
+            </Route>
+          </Switch>
+
+
+
+        </header>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
+      </div>
+    </BrowserRouter>
   );
 }
 
